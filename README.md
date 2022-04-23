@@ -107,6 +107,8 @@ def main():
 
 ## 数据清洗与预处理
 
+**评论信息数据清洗**
+
 提取`replies.message`内容，该内容即为评论信息
 
  ```python
@@ -119,6 +121,20 @@ rcount = message['rcount']                # 回复数
 like = message['like']                    # 点赞数
 content = message['content']['message']      # 评论内容
  ```
+
+
+
+**弹幕信息数据清洗**
+
+提取`response.text`内容，该内容即为弹幕信息
+
+在线正则表达式测试 https://tool.oschina.net/regex#
+
+测得正则式`[\u4e00-\u9fa5]+`，但是空格会造成输出换行，使用`.*?([\u4e00-\u9fa5]+).*`
+
+```python
+res = re.findall('.*?([\u4e00-\u9fa5]+).*',response.text)
+```
 
 
 

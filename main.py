@@ -3,7 +3,7 @@ Description:
 Author: Liu Heng
 Date: 2022-04-22 23:44:03
 LastEditors: Liu Heng
-LastEditTime: 2022-04-23 12:40:11
+LastEditTime: 2022-04-23 15:12:05
 '''
 import time
 import sys
@@ -11,13 +11,16 @@ import requests
 from icecream import ic
 from jsonpath import jsonpath
 
+# 正则
+import re
+
 # 词云
 import stylecloud
 from PIL import Image
 import csv
 
 def save(list):
-    f = open('D:/Study/course/Python/NO8/format.csv','a',encoding='utf-8-sig',newline='')
+    f = open('Comment.csv','a',encoding='utf-8-sig',newline='')
     csv_writer = csv.writer(f)
     csv_writer.writerow(list)
     f.close()
@@ -26,7 +29,7 @@ class ToDo():
     def __init__(self, username='nobody'):
         self.username = username
 
-    def search(self):
+    def CommentSearch(self):
         big_list = []
         save(["昵称","性别","签名","回复数","点赞数","评论内容","等级","评论时间"])
 
@@ -71,10 +74,27 @@ class ToDo():
                 item.append(otherStyleTime)
 
                 save(item)
+        print('写入成功')
 
-
-    def clean_dir1(self):
-        print("选项二!")
+    def BarrageSearch(self):
+        print('正在爬取ing')
+        time.sleep(0.5)
+        start_url = f'https://api.bilibili.com/x/v2/dm/web/seg.so?type=1&oid=474033384&pid=507855067&segment_index=2'
+        headers = {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36',
+            'referer': 'https://www.bilibili.com/video/BV1Zu411m72m?spm_id_from=333.999.0.0'
+        }
+        response = requests.get(start_url, headers = headers)
+        res = re.findall('.*?([\u4e00-\u9fa5]+).*',response.text)
+        
+        print('爬取成功，正在写入ing')
+        f = open('Barrage.csv','a',encoding='utf-8-sig',newline='')
+        csv_writer = csv.writer(f)
+        csv_writer.writerow(["弹幕内容"])
+        csv_writer.writerow(res)
+        f.close()
+        print('写入成功')
+        
 
     def clean_dir2(self):
         print("选项三!")
@@ -84,8 +104,8 @@ class Menu():
     def __init__(self):
         self.thing = ToDo()
         self.choices = {
-            "1": self.thing.search,
-            "2": self.thing.clean_dir1,
+            "1": self.thing.CommentSearch,
+            "2": self.thing.BarrageSearch,
             "3": self.thing.clean_dir2,
             "4": self.quit
         }
@@ -94,7 +114,7 @@ class Menu():
         print("""
 操作菜单:
 1. 爬取数据
-2. 选项二
+2. 爬取弹幕
 3. 选项三
 4. 退出
 """)

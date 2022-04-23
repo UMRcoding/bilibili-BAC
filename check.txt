@@ -1,3 +1,4 @@
+评论
 1. 
 https://api.bilibili.com/x/v2/reply/main?callback=jQuery17205805208069483039_1650361558666&jsonp=jsonp&next=0&type=1&oid=507855067&mode=3&plat=1&_=1650361573280
 
@@ -7,6 +8,12 @@ https://api.bilibili.com/x/v2/reply/main?callback=jQuery17205805208069483039_165
 3.
 https://api.bilibili.com/x/v2/reply/main?callback=jQuery17205805208069483039_1650361558668&jsonp=jsonp&next=3&type=1&oid=507855067&mode=3&plat=1&_=1650361876868
 
-
-
 start_url = https://api.bilibili.com/x/v2/reply/main?jsonp=jsonp&next=0&type=1&oid=507855067&mode=3&plat=1&_=1650361573280
+
+弹幕
+1.
+seg.so?type=1&oid=474033384&date=2022-04-13
+
+2.
+https://api.bilibili.com/x/v2/dm/web/seg.so?type=1&oid=474033384&pid=507855067&segment_index=2
+
