@@ -3,7 +3,7 @@ Description:
 Author: Liu Heng
 Date: 2022-04-22 23:44:03
 LastEditors: Liu Heng
-LastEditTime: 2022-04-23 18:52:23
+LastEditTime: 2022-04-23 21:53:29
 '''
 import time
 import sys
@@ -22,7 +22,7 @@ import numpy as np
 from PIL import Image
 
 def save(list):
-    f = open('Comment.csv','a',encoding='utf-8-sig',newline='')
+    f = open('data/Comment.csv','a',encoding='utf-8-sig',newline='')
     csv_writer = csv.writer(f)
     csv_writer.writerow(list)
     f.close()
@@ -102,7 +102,7 @@ class ToDo():
 
         #  数据写入
         print('爬取成功，正在写入ing')
-        f = open('Barrage.csv','a',encoding='utf-8-sig',newline='')
+        f = open('data/Barrage.csv','a',encoding='utf-8-sig',newline='')
         csv_writer = csv.writer(f)
         # csv_writer.writerow(["弹幕内容"])
         csv_writer.writerow(res)
@@ -111,16 +111,7 @@ class ToDo():
 
     #  数据分析
     def Analyse(self):
-        # rating_fname = r"Comment.csv"
-        # rating = pd.read_csv(rating_fname,sep='::',engine='python',header=None)
         print('----------词云生成中------------')
-        # rating.columns = ["昵称","性别","签名","回复数","点赞数","评论内容","等级","评论时间"]
-        # print(rating)
-        # data = ''.join(big_list)
-        # stylecloud.gen_stylecloud(data,font_path="C:/Windows/Fonts/simfang.ttf")
-        # img = Image.open("D:/Study/course/Python/NO8/stylecloud.png")
-        # img.show()
-        # print('----------词云已生成------------')
 
 
 
