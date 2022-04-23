@@ -3,7 +3,7 @@ Description:
 Author: Liu Heng
 Date: 2022-04-22 23:44:03
 LastEditors: Liu Heng
-LastEditTime: 2022-04-23 16:41:30
+LastEditTime: 2022-04-23 18:52:23
 '''
 import time
 import sys
@@ -34,7 +34,7 @@ class ToDo():
     #  爬取评论数据
     def CommentSearch(self):
         big_list = []
-        save(["昵称","性别","签名","回复数","点赞数","评论内容","等级","评论时间"])
+        # save(["昵称","性别","签名","回复数","点赞数","评论内容","等级","评论时间"])
 
         #  获取评论数据
         for i in range(10):
@@ -104,7 +104,7 @@ class ToDo():
         print('爬取成功，正在写入ing')
         f = open('Barrage.csv','a',encoding='utf-8-sig',newline='')
         csv_writer = csv.writer(f)
-        csv_writer.writerow(["弹幕内容"])
+        # csv_writer.writerow(["弹幕内容"])
         csv_writer.writerow(res)
         f.close()
         print('写入成功')
