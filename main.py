@@ -3,7 +3,7 @@ Description:
 Author: Liu Heng
 Date: 2022-04-22 23:44:03
 LastEditors: Liu Heng
-LastEditTime: 2022-04-23 15:12:05
+LastEditTime: 2022-04-23 16:41:30
 '''
 import time
 import sys
@@ -16,8 +16,10 @@ import re
 
 # 词云
 import stylecloud
-from PIL import Image
 import csv
+import pandas as pd
+import numpy as np
+from PIL import Image
 
 def save(list):
     f = open('Comment.csv','a',encoding='utf-8-sig',newline='')
@@ -29,19 +31,24 @@ class ToDo():
     def __init__(self, username='nobody'):
         self.username = username
 
+    #  爬取评论数据
     def CommentSearch(self):
         big_list = []
         save(["昵称","性别","签名","回复数","点赞数","评论内容","等级","评论时间"])
 
+        #  获取评论数据
         for i in range(10):
             print('爬取第{}个懒加载数据!'.format(i))
             time.sleep(0.5)
 
+            #  包装请求头
             start_url = f'https://api.bilibili.com/x/v2/reply/main?jsonp=jsonp&next={i}&type=1&oid=507855067&mode=3&plat=1&_=1650361573280'
             headers = {
                 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36',
                 'referer': 'https://www.bilibili.com/video/BV1Zu411m72m?spm_id_from=333.999.0.0'
             }
+
+            #  数据清洗
             response = requests.get(start_url, headers = headers).json()
             message_list = response['data']['replies']
 
@@ -73,20 +80,27 @@ class ToDo():
                 otherStyleTime = time.strftime("%Y%m%d", timeArray)   # 评论时间
                 item.append(otherStyleTime)
 
+                #  写入评论数据
                 save(item)
         print('写入成功')
 
+    #  爬取弹幕数据
     def BarrageSearch(self):
         print('正在爬取ing')
         time.sleep(0.5)
+
+        #  包装请求头
         start_url = f'https://api.bilibili.com/x/v2/dm/web/seg.so?type=1&oid=474033384&pid=507855067&segment_index=2'
         headers = {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36',
             'referer': 'https://www.bilibili.com/video/BV1Zu411m72m?spm_id_from=333.999.0.0'
         }
         response = requests.get(start_url, headers = headers)
+
+        #  数据清洗
         res = re.findall('.*?([\u4e00-\u9fa5]+).*',response.text)
-        
+
+        #  数据写入
         print('爬取成功，正在写入ing')
         f = open('Barrage.csv','a',encoding='utf-8-sig',newline='')
         csv_writer = csv.writer(f)
@@ -94,10 +108,20 @@ class ToDo():
         csv_writer.writerow(res)
         f.close()
         print('写入成功')
-        
 
-    def clean_dir2(self):
-        print("选项三!")
+    #  数据分析
+    def Analyse(self):
+        # rating_fname = r"Comment.csv"
+        # rating = pd.read_csv(rating_fname,sep='::',engine='python',header=None)
+        print('----------词云生成中------------')
+        # rating.columns = ["昵称","性别","签名","回复数","点赞数","评论内容","等级","评论时间"]
+        # print(rating)
+        # data = ''.join(big_list)
+        # stylecloud.gen_stylecloud(data,font_path="C:/Windows/Fonts/simfang.ttf")
+        # img = Image.open("D:/Study/course/Python/NO8/stylecloud.png")
+        # img.show()
+        # print('----------词云已生成------------')
+
 
 
 class Menu():
@@ -106,7 +130,7 @@ class Menu():
         self.choices = {
             "1": self.thing.CommentSearch,
             "2": self.thing.BarrageSearch,
-            "3": self.thing.clean_dir2,
+            "3": self.thing.Analyse,
             "4": self.quit
         }
 
