@@ -3,7 +3,7 @@ Description:
 Author: Liu Heng
 Date: 2022-04-22 23:44:03
 LastEditors: Liu Heng
-LastEditTime: 2022-04-23 21:53:29
+LastEditTime: 2022-04-24 09:01:58
 '''
 import time
 import sys
@@ -37,12 +37,12 @@ class ToDo():
         # save(["昵称","性别","签名","回复数","点赞数","评论内容","等级","评论时间"])
 
         #  获取评论数据
-        for i in range(10):
+        for i in range(20):
             print('爬取第{}个懒加载数据!'.format(i))
-            time.sleep(0.5)
+            time.sleep(0.2)
 
             #  包装请求头
-            start_url = f'https://api.bilibili.com/x/v2/reply/main?jsonp=jsonp&next={i}&type=1&oid=507855067&mode=3&plat=1&_=1650361573280'
+            start_url = f'https://api.bilibili.com/x/v2/reply/main?jsonp=jsonp&next={i}&type=1&oid=626608698&mode=3&plat=1&_=1650726513443'
             headers = {
                 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36',
                 'referer': 'https://www.bilibili.com/video/BV1Zu411m72m?spm_id_from=333.999.0.0'
@@ -90,7 +90,7 @@ class ToDo():
         time.sleep(0.5)
 
         #  包装请求头
-        start_url = f'https://api.bilibili.com/x/v2/dm/web/seg.so?type=1&oid=474033384&pid=507855067&segment_index=2'
+        start_url = f'https://api.bilibili.com/x/v2/dm/web/seg.so?type=1&oid=250832329&pid=626608698&segment_index=2'
         headers = {
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36',
             'referer': 'https://www.bilibili.com/video/BV1Zu411m72m?spm_id_from=333.999.0.0'
@@ -112,8 +112,6 @@ class ToDo():
     #  数据分析
     def Analyse(self):
         print('----------词云生成中------------')
-
-
 
 class Menu():
     def __init__(self):
